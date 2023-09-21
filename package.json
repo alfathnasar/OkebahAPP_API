@@ -1,0 +1,17 @@
+{
+  "name": "express-mysql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Nasar Alfath",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "midtrans-client": "^1.3.1",
+    "mysql2": "^3.5.2",
+    "nodemon": "^3.0.1"
+  }
+}
