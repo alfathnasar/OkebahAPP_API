@@ -1,17 +1,12 @@
 const userModels = require('../models/users.js')
 
 const getUsers = async (req, res) => {
-    try {
         const {username} = req.params;
         const [data] = await userModels.getUsers(username);
         res.status(200).json({
             data : data
         })
-    } catch (error) {
-        response.on('error', function(err) {
-    console.log('ERROR', err);
-});
-    }
+    
 }
 
 const createNewUser = async (req, res) => {
