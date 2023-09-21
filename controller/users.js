@@ -8,10 +8,9 @@ const getUsers = async (req, res) => {
             data : data
         })
     } catch (error) {
-        res.status(500).json({
-            msg : 'Server Error',
-            serverMsg : error,
-        })
+        response.on('error', function(err) {
+    console.log('ERROR', err);
+});
     }
 }
 
