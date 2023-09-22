@@ -47,29 +47,12 @@ const updatePurchasedStatus = async (req, res) => {
         //     }
         // });
 
-        let id_pemesanan = req.body.order_id;
-        let respon_midtrans = JSON.stringify(req.body);
-        transactionStatus = req.body.transactionStatus;
-
-        if (transactionStatus == 'settlement'){
-            await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-            res.status(200).json({
-                msg : 'SETTLEMENT'
-            });
-        } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
-            await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-            res.status(200).json({
-                msg : 'CANCEL Or EXPIRE'
-            });
-        } else if (transactionStatus == 'pending'){
-            // TODO set transaction status on your databaase to 'pending' / waiting payment
-            res.status(200).json({
-                msg : 'PENDING'
-            });
-        }
+        res.status(200).json({
+            data : req.body
+        });
     } catch (error) {
         res.status(500).json({
-            msg : 'SERVER ERROR',
+            msg : res.body,
             serverMsg : error
         });
     }
