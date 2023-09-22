@@ -30,7 +30,14 @@ const getPurchased = (username, transportasi) => {
     return dbPool.execute(sqlQuery);
 }
 
+const updatePurchasedStatus = () => {
+    const sqlQuery = `UPDATE pemesanan_eticket SET respon_midtrans='${respon_midtrans}'
+    where id_pemesanan = '${id_pemesanan}';`;
+    return dbPool.execute(sqlQuery);
+}
+
 module.exports = {
     setNewPurchased,
-    getPurchased
+    getPurchased,
+    updatePurchasedStatus
 }
