@@ -17,6 +17,9 @@ dbPool.getConnection((err, connection) => {
     console.log('Berhasil terhubung ke database');
     connection.release(); // Kembalikan koneksi ke dalam pool
     console.log(process.env.DB_HOST);
+    console.log(process.env.DB_USER);
+    console.log(process.env.DB_PASS);
+    console.log(process.env.DB_NAME);
   }
 });
 
