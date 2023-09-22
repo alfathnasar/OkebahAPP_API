@@ -28,7 +28,7 @@ const updatePurchasedStatus = async (req, res) => {
         .then(async (statusResponse)=>{
             let id_pemesanan = statusResponse.order_id;
             let respon_midtrans = JSON.stringify(statusResponse);
-            let transactionStatus = statusResponse.transactionStatus;
+            let transactionStatus = statusResponse.transaction_status;
 
             if (transactionStatus == 'settlement'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
