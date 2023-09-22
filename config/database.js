@@ -6,12 +6,16 @@ const dbPool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-}, (err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err);
-  } else {
-    console.log('Connected to the database');
-  }
+  
 });
   
+dbPool.getConnection((err, connection) => {
+  if (err) {
+    console.error('Gagal terhubung ke database:', err.message);
+  } else {
+    console.log('Berhasil terhubung ke database');
+    connection.release(); // Kembalikan koneksi ke dalam pool
+  }
+});
+
 module.exports = dbPool.promise();
