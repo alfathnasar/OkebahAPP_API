@@ -45,6 +45,7 @@ const updatePurchasedStatus = async (req, res) => {
                 res.status(200).json({
                     msg : 'PENDING'
                 });
+                console.log(`PENDING`);
             }
         });
     } catch (error) {
