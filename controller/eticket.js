@@ -30,12 +30,12 @@ const updatePurchasedStatus = (req, res) => {
             let respon_midtrans = JSON.stringify(statusResponse);
 
             if (transactionStatus == 'settlement'){
-                await eticketModels.updatePurchasedStatus(username, id_pemesanan, respon_midtrans);
+                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 res.status(200).json({
                     msg : 'SETTLEMENT'
                 });
             } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
-                await eticketModels.updatePurchasedStatus(username, id_pemesanan, respon_midtrans);
+                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 res.status(200).json({
                     msg : 'CANCEL Or EXPIRE'
                 });
