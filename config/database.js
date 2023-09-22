@@ -12,9 +12,11 @@ const dbPool = mysql.createPool({
 dbPool.getConnection((err, connection) => {
   if (err) {
     console.error('Gagal terhubung ke database:', err.message);
+    console.log(process.env.DB_HOST);
   } else {
     console.log('Berhasil terhubung ke database');
     connection.release(); // Kembalikan koneksi ke dalam pool
+    console.log(process.env.DB_HOST);
   }
 });
 
