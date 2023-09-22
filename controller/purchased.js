@@ -58,10 +58,15 @@ const updatePurchasedStatus = (req, res) => {
                 res.status(200).json({
                     msg : 'SETTLEMENT'
                 });
-            }else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
+            } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
                 await purchasedModels.updatePurchasedStatus(username, id_pemesanan, respon_midtrans);
                 res.status(200).json({
                     msg : 'CANCEL Or EXPIRE'
+                });
+            } else if (transactionStatus == 'pending'){
+                // TODO set transaction status on your databaase to 'pending' / waiting payment
+                res.status(200).json({
+                    msg : 'PENDING'
                 });
             }
         });
