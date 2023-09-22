@@ -3,5 +3,6 @@
     const router = express.Router();
 
     router.get('/:username/:id_pemesanan', eticketController.getDataPenumpang);
+    router.post('/', eticketController.updatePurchasedStatus);
 
     module.exports = router;

@@ -46,40 +46,7 @@ const getPurchased = async (req, res) => {
     }
 }
 
-const updatePurchasedStatus = (req, res) => {
-    try {
-        coreApi.transaction.notification(req.body)
-        .then(async (statusResponse)=>{
-            let id_pemesanan = statusResponse.order_id;
-            let respon_midtrans = JSON.stringify(statusResponse);
-
-            if (transactionStatus == 'settlement'){
-                await purchasedModels.updatePurchasedStatus(username, id_pemesanan, respon_midtrans);
-                res.status(200).json({
-                    msg : 'SETTLEMENT'
-                });
-            } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
-                await purchasedModels.updatePurchasedStatus(username, id_pemesanan, respon_midtrans);
-                res.status(200).json({
-                    msg : 'CANCEL Or EXPIRE'
-                });
-            } else if (transactionStatus == 'pending'){
-                // TODO set transaction status on your databaase to 'pending' / waiting payment
-                res.status(200).json({
-                    msg : 'PENDING'
-                });
-            }
-        });
-    } catch (error) {
-        res.status(500).json({
-            msg : 'SERVER ERROR',
-            serverMsg : error
-        });
-    }
-}
-
 module.exports = {
     setNewPurchased,
     getPurchased,
-    updatePurchasedStatus
 }

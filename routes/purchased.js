@@ -4,6 +4,5 @@
 
     router.post('/', purchasedController.setNewPurchased);
     router.get('/:username/:transportasi', purchasedController.getPurchased);
-    router.patch('/', purchasedController.updatePurchasedStatus);
 
     module.exports = router;
