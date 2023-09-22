@@ -22,30 +22,50 @@ const getDataPenumpang = async (req, res) => {
     }
 }
 
-const updatePurchasedStatus = (req, res) => {
+const updatePurchasedStatus = async (req, res) => {
     try {
-        coreApi.transaction.notification(req.body)
-        .then(async (statusResponse)=>{
-            let id_pemesanan = statusResponse.order_id;
-            let respon_midtrans = JSON.stringify(statusResponse);
+        // coreApi.transaction.notification(req.body)
+        // .then(async (statusResponse)=>{
+        //     let id_pemesanan = statusResponse.order_id;
+        //     let respon_midtrans = JSON.stringify(statusResponse);
 
-            if (transactionStatus == 'settlement'){
-                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-                res.status(200).json({
-                    msg : 'SETTLEMENT'
-                });
-            } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
-                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-                res.status(200).json({
-                    msg : 'CANCEL Or EXPIRE'
-                });
-            } else if (transactionStatus == 'pending'){
-                // TODO set transaction status on your databaase to 'pending' / waiting payment
-                res.status(200).json({
-                    msg : 'PENDING'
-                });
-            }
-        });
+        //     if (transactionStatus == 'settlement'){
+        //         await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+        //         res.status(200).json({
+        //             msg : 'SETTLEMENT'
+        //         });
+        //     } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
+        //         await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+        //         res.status(200).json({
+        //             msg : 'CANCEL Or EXPIRE'
+        //         });
+        //     } else if (transactionStatus == 'pending'){
+        //         // TODO set transaction status on your databaase to 'pending' / waiting payment
+        //         res.status(200).json({
+        //             msg : 'PENDING'
+        //         });
+        //     }
+        // });
+
+        let id_pemesanan = req.body.order_id;
+        let respon_midtrans = JSON.stringify(req.body);
+
+        if (transactionStatus == 'settlement'){
+            await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+            res.status(200).json({
+                msg : 'SETTLEMENT'
+            });
+        } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
+            await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+            res.status(200).json({
+                msg : 'CANCEL Or EXPIRE'
+            });
+        } else if (transactionStatus == 'pending'){
+            // TODO set transaction status on your databaase to 'pending' / waiting payment
+            res.status(200).json({
+                msg : 'PENDING'
+            });
+        }
     } catch (error) {
         res.status(500).json({
             msg : 'SERVER ERROR',
