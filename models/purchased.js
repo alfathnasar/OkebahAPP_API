@@ -26,7 +26,8 @@ const getPurchased = (username, transportasi) => {
     JOIN transportasi ON pemesanan_eticket.id_transportasi = transportasi.id_transportasi
     JOIN destinasi ON pemesanan_eticket.id_destinasi = destinasi.id_destinasi
     WHERE pemesanan_eticket.username = '${username}'
-        AND transportasi.jenis_transportasi = '${transportasi}';`;
+        AND transportasi.jenis_transportasi = '${transportasi}' 
+        AND JSON_EXTRACT(respon_midtrans, '$.transaction_status') = 'pending';`;
     return dbPool.execute(sqlQuery);
 }
 
