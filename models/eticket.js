@@ -26,6 +26,6 @@ const updatePurchasedStatus = (id_pemesanan, respon_midtrans) => {
 
 module.exports = {
     getDataPenumpang,
-    getDataPenumpang,
+    getETicket,
     updatePurchasedStatus
 }
