@@ -1,9 +1,9 @@
 const dbPool = require('../config/database.js');
 
 const getDataPenumpang = (username,id_pemesanan) => {
-    const sqlQuery = `SELECT kode_booking, nama_penumpang, jk, respon_midtrans
-    from pemesanan_eticket
-    where username = '${username}' && id_pemesanan = '${id_pemesanan}';`;
+    const sqlQuery = `SELECT nama_penumpang, jk, respon_midtrans, transportasi.id_transportasi, jenis_transportasi
+    from pemesanan_eticket, transportasi
+    where username = '${username}' && id_pemesanan = '${id_pemesanan}' && pemesanan_eticket.id_transportasi = transportasi.id_transportasi;`;
     return dbPool.execute(sqlQuery);
 }
 
