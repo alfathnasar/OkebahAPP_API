@@ -23,6 +23,21 @@ const getDataPenumpang = async (req, res) => {
     }
 }
 
+const getETicket = async (req, res) => {
+    try {
+        const {username, jenis_transportasi} = req.params;
+        const [data] = await eticketModels.getETicket(username, jenis_transportasi);
+        res.status(200).json({
+            data : data
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg : 'SERVER ERROR',
+            serverMsg : error,
+        })
+    }
+}
+
 const updatePurchasedStatus = async (req, res) => {
     try {
         coreApi.transaction.notification(req.body)
@@ -59,5 +74,6 @@ const updatePurchasedStatus = async (req, res) => {
 
 module.exports = {
     getDataPenumpang,
+    getETicket,
     updatePurchasedStatus
 }
