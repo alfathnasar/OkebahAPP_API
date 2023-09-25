@@ -13,8 +13,8 @@ const getETicket = (username, jenis_transportasi) => {
     FROM eticket
     JOIN transportasi ON eticket.id_transportasi = transportasi.id_transportasi
     JOIN destinasi ON eticket.id_destinasi = destinasi.id_destinasi
-    WHERE eticket.username = '${username}'
-    AND transportasi.jenis_transportasi = '${jenis_transportasi}';`;
+    WHERE eticket.username = 'Alfathnasar'
+    AND transportasi.jenis_transportasi = 'Speedboat';`;
     return dbPool.execute(sqlQuery);
 }
 
