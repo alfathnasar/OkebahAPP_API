@@ -37,7 +37,6 @@ const updatePurchasedStatus = async (req, res) => {
                     msg : 'SETTLEMENT'
                 });
             } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
-                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 await purchasedModels.deletePurchased(id_pemesanan);
                 res.status(200).json({
                     msg : 'CANCEL Or EXPIRE'
