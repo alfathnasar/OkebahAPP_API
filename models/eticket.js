@@ -15,7 +15,7 @@ const getETicket = (username, jenis_transportasi) => {
     JOIN destinasi ON eticket.id_destinasi = destinasi.id_destinasi
     WHERE eticket.username = '${username}'
     AND transportasi.jenis_transportasi = '${jenis_transportasi}';`;
-    return dbPool.execute;
+    return dbPool.execute(sqlQuery);
 }
 
 const updatePurchasedStatus = (id_pemesanan, respon_midtrans) => {
