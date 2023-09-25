@@ -8,7 +8,13 @@ const getDataPenumpang = (username,id_pemesanan) => {
 }
 
 const getETicket = (username, jenis_transportasi) => {
-    const sqlQuery = `SELECT *from eticket;`;
+    const sqlQuery = `SELECT eticket.kode_booking,eticket.id_destinasi,tanggal,pukul,nama_penumpang,jk, transportasi.jenis_transportasi, nama_transportasi, 
+    destinasi.asal,tujuan,pelabuhan_asal_speed, pelabuhan_tujuan_speed, pelabuhan_asal_fery, pelabuhan_tujuan_fery
+    FROM eticket
+    JOIN transportasi ON eticket.id_transportasi = transportasi.id_transportasi
+    JOIN destinasi ON eticket.id_destinasi = destinasi.id_destinasi
+    WHERE eticket.username = '${username}'
+    AND transportasi.jenis_transportasi = '${jenis_transportasi}'`;
     return dbPool.execute(sqlQuery);
 }
 
