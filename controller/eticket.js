@@ -1,5 +1,6 @@
 const eticketModels = require('../models/eticket.js');
 const midtransClient = require('midtrans-client');
+const purchasedModels = require('../models/purchased.js');
 // Create Core API instance
 const coreApi = new midtransClient.CoreApi({
     isProduction : false,
@@ -37,6 +38,7 @@ const updatePurchasedStatus = async (req, res) => {
                 });
             } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+                await purchasedModels.deletePurchased(id_pemesanan);
                 res.status(200).json({
                     msg : 'CANCEL Or EXPIRE'
                 });
