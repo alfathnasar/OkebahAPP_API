@@ -31,7 +31,7 @@ const getPurchased = (username, transportasi) => {
     return dbPool.execute(sqlQuery);
 }
 
-const deletePurchased = (username, id_pemesanan) => {
+const deletePurchased = (id_pemesanan) => {
     const sqlQuery = `DELETE FROM pemesanan_eticket where id_pemesanan = '${id_pemesanan}';`;
     return dbPool.execute(sqlQuery);
 }
