@@ -4,6 +4,7 @@ const scheduleRouter = require('./routes/schedule.js');
 const purchasedRouter = require('./routes/purchased.js');
 const eticketRouter = require('./routes/eticket.js');
 const middleware = require('./middleware/logs.js');
+const upload = require('./middleware/multer.js');
 require('dotenv').config();
 
 const app = express();
@@ -16,6 +17,11 @@ app.use('/users', userRouter);
 app.use('/schedule', scheduleRouter);
 app.use('/purchased', purchasedRouter);
 app.use('/eticket', eticketRouter);
+app.post('/images', upload.single('photo'), (req, res) => {
+    res.json({
+        message : 'Upload Berhasil'
+    })
+})
 
 app.listen(PORT, ()=> {
     console.log(`Server Berjalan di PORT : ${PORT}`);
