@@ -4,10 +4,7 @@ const scheduleRouter = require('./routes/schedule.js');
 const purchasedRouter = require('./routes/purchased.js');
 const eticketRouter = require('./routes/eticket.js');
 const middleware = require('./middleware/logs.js');
-
-const multer = require('multer');
-const path = require('path');
-
+const upload = require('./middleware/multer.js');
 require('dotenv').config();
 
 const app = express();
@@ -21,23 +18,15 @@ app.use('/schedule', scheduleRouter);
 app.use('/purchased', purchasedRouter);
 app.use('/eticket', eticketRouter);
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'images/');
-    },
-    filename: (req, file, cb) => {
-      const ext = path.extname(file.originalname);
-      cb(null, Date.now() + ext);
-    },
-  });
-  
-  const upload = multer({ storage });
-
 app.post('/upload', upload.single('image'), (req, res) => {
     if (!req.file) {
-      return res.status(400).send('No file uploaded.');
+      return res.status(400).json({ message: 'No file uploaded' });
     }
-    res.send('File uploaded successfully!');
+  
+    // Handle the uploaded file here
+    res.json({
+      message: 'Upload Berhasil'
+    });
   });
   
 
