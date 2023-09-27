@@ -18,10 +18,16 @@ app.use('/schedule', scheduleRouter);
 app.use('/purchased', purchasedRouter);
 app.use('/eticket', eticketRouter);
 app.post('/images', upload.single('photo'), (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+  
+    // Handle the uploaded file here
     res.json({
-        message : 'Upload Berhasil'
-    })
-})
+      message: 'Upload Berhasil'
+    });
+  });
+  
 
 app.listen(PORT, ()=> {
     console.log(`Server Berjalan di PORT : ${PORT}`);
