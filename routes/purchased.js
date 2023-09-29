@@ -3,7 +3,8 @@
     const router = express.Router();
 
     router.post('/', purchasedController.setNewPurchased);
-    // router.get('/:username/:transportasi', purchasedController.getPurchased);
     router.get('/all/:username', purchasedController.getAllPurchased);
+    router.get('/:username/:transportasi', purchasedController.getPurchased);
+    
 
     module.exports = router;
