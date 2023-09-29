@@ -33,11 +33,11 @@ const getPurchased = (username, transportasi) => {
 
 const getAllPurchased = (username) => {
     const sqlQuery = `SELECT DISTINCT pemesanan_eticket.id_pemesanan,pemesanan_eticket.id_destinasi,tanggal,pukul,harga_total,respon_midtrans, transportasi.jenis_transportasi, nama_transportasi, 
-        destinasi.asal,tujuan,pelabuhan_asal_speed, pelabuhan_tujuan_speed, pelabuhan_asal_fery, pelabuhan_tujuan_fery
-    FROM pemesanan_eticket
-    JOIN transportasi ON pemesanan_eticket.id_transportasi = transportasi.id_transportasi
-    JOIN destinasi ON pemesanan_eticket.id_destinasi = destinasi.id_destinasi
-    WHERE pemesanan_eticket.username = '${username}';`;
+    destinasi.asal,tujuan,pelabuhan_asal_speed, pelabuhan_tujuan_speed, pelabuhan_asal_fery, pelabuhan_tujuan_fery
+FROM pemesanan_eticket
+JOIN transportasi ON pemesanan_eticket.id_transportasi = transportasi.id_transportasi
+JOIN destinasi ON pemesanan_eticket.id_destinasi = destinasi.id_destinasi
+WHERE pemesanan_eticket.username = 'Alfathnasar';`;
     return dbPool.execute(sqlQuery);
 }
 

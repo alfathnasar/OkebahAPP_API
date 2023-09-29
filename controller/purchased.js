@@ -51,7 +51,8 @@ const getAllPurchased = async (req, res) => {
         const {username} = req.params;
         const [data] = await purchasedModels.getAllPurchased(username);
         res.status(200).json({
-            data : data
+            data : data,
+            username : username
         });
     } catch (error) {
         res.status(500).json({
