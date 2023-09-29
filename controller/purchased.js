@@ -46,7 +46,23 @@ const getPurchased = async (req, res) => {
     }
 }
 
+const getAllPurchased = async (req, res) => {
+    try {
+        const {username} = req.params;
+        const [data] = await purchasedModels.getAllPurchased(username);
+        res.status(200).json({
+            data : data
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg : 'SERVER ERROR',
+            serverMsg : error,
+        })
+    }
+}
+
 module.exports = {
     setNewPurchased,
     getPurchased,
+    getAllPurchased
 }
