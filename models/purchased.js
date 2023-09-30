@@ -41,8 +41,8 @@ WHERE pemesanan_eticket.username = 'Alfathnasar';`;
     return dbPool.execute(sqlQuery);
 }
 
-const deletePurchased = (id_pemesanan) => {
-    const sqlQuery = `DELETE FROM pemesanan_eticket where id_pemesanan = '${id_pemesanan}';`;
+const deletePurchased = (username, id_pemesanan) => {
+    const sqlQuery = `DELETE FROM pemesanan_eticket where id_pemesanan = '${id_pemesanan}' AND username = '${username}';`;
     return dbPool.execute(sqlQuery);
 }
 

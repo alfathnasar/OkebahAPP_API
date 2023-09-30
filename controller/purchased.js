@@ -62,8 +62,24 @@ const getAllPurchased = async (req, res) => {
     }
 }
 
+const deletePurchased = async (req, res) => {
+    try {
+        const {username, idPemesanan} = req.params;
+        const [data] = await purchasedModels.deletePurchased(username, idPemesanan);
+        res.status(200).json({
+            msg : 'Purchased is Delete'
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg : 'SERVER ERROR',
+            serverMsg : error,
+        })
+    }
+}
+
 module.exports = {
     setNewPurchased,
     getPurchased,
-    getAllPurchased
+    getAllPurchased,
+    deletePurchased
 }
