@@ -3,6 +3,7 @@ const userRouter = require('./routes/users.js');
 const scheduleRouter = require('./routes/schedule.js');
 const purchasedRouter = require('./routes/purchased.js');
 const eticketRouter = require('./routes/eticket.js');
+const wisataRouter = require('./routes/wisata.js');
 const middleware = require('./middleware/logs.js');
 const upload = require('./middleware/multer.js');
 require('dotenv').config();
@@ -17,6 +18,7 @@ app.use('/users', userRouter);
 app.use('/schedule', scheduleRouter);
 app.use('/purchased', purchasedRouter);
 app.use('/eticket', eticketRouter);
+app.use('/wisata', wisataRouter);
 
 app.post('/upload', upload.single('image'), (req, res) => {
     if (!req.file) {
