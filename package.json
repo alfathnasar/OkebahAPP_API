@@ -5,7 +5,7 @@
   "author": "Nasar Alfath",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

@@ -3,6 +3,6 @@ const wisataController = require('../controller/wisata.js')
 
 const router = express.Router();
 
-router.post('/', wisataController.getDataWisata);
+router.get('/', wisataController.getDataWisata);
 
 module.exports = router;
