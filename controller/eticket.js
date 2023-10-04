@@ -76,11 +76,6 @@ const updatePurchasedStatus = async (req, res) => {
                         })
                     }
                 });
-
-
-                res.status(200).json({
-                    msg : 'SETTLEMENT'
-                });
             } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 res.status(200).json({
