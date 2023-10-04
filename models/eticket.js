@@ -24,8 +24,35 @@ const updatePurchasedStatus = (id_pemesanan, respon_midtrans) => {
     return dbPool.execute(sqlQuery);
 }
 
+const getToken = async (id_pemesanan) => {
+    const sqlQuery = `
+    SELECT DISTINCT pemesanan_eticket.id_pemesanan, pengguna.token 
+    FROM pemesanan_eticket, pengguna
+    WHERE pemesanan_eticket.username = pengguna.username AND
+    pemesanan_eticket.id_pemesanan = '${id_pemesanan}';
+    `;
+    
+    try {
+        const [rows, fields] = await dbPool.execute(sqlQuery);
+
+        if (rows.length > 0) {
+            // Assuming that 'token' is the name of the column in your database
+            const token = rows[0].token;
+            return token;
+        } else {
+            // Handle the case where no token is found for the given id_pemesanan
+            return null;
+        }
+    } catch (error) {
+        // Handle database query errors here
+        console.error('Error retrieving token:', error);
+        throw error;
+    }
+}
+
 module.exports = {
     getDataPenumpang,
     getETicket,
-    updatePurchasedStatus
+    updatePurchasedStatus,
+    getToken
 }
