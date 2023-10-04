@@ -83,8 +83,8 @@ const updatePurchasedStatus = async (req, res) => {
                     to: token, // Replace with the recipient's registration token
                     collapse_key: 'your_collapse_key',
                     notification: {
-                        title: 'Pembayaran Berhasil',
-                        body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
+                        title: 'Pembayaran Gagal',
+                        body: 'Batas Waktu Pembayaran Anda Telah Habis',
                     },
                 };
 
