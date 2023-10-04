@@ -53,7 +53,7 @@ const updatePurchasedStatus = async (req, res) => {
 
             if (transactionStatus == 'settlement'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-                token = await eticketModels.getToken(id_pemesanan);
+                token = "c8y-A4xdT9eICrPpwZBQ7K:APA91bG634akhF-q_cAmHiz_BTJtxOHa5gWtFRRsC950cOYVAEV0au5QYwd38qcx3EgYOXwdwFSFddmtpgnwBKOghekEoN2HboVmsqr_ajedAe6KjJXoDrNJwl2pn3XZAYoBZU-qTMqE";
                 const message = {
                     to: token, // Replace with the recipient's registration token
                     collapse_key: 'your_collapse_key',
