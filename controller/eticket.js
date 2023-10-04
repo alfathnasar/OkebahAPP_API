@@ -103,10 +103,29 @@ const updatePurchasedStatus = async (req, res) => {
                 });
             } else if (transactionStatus == 'pending'){
                 // TODO set transaction status on your databaase to 'pending' / waiting payment
-                res.status(200).json({
-                    msg : 'PENDING'
+                var token = await eticketModels.getToken(id_pemesanan);
+                const message = {
+                    to: token, // Replace with the recipient's registration token
+                    collapse_key: 'your_collapse_key',
+                    notification: {
+                        title: 'Menunggu Pembayaran',
+                        body: 'Segera Selesaikan Pembayaran Kamu Sebelum Batas Waktu',
+                    },
+                };
+
+                fcm.send(message, function(err, response){
+                    if (err) {
+                        res.status(500).json({
+                            message : err,
+                            token : token
+                        })
+                    } else {
+                        res.status(200).json({
+                            message : response,
+                            token : token
+                        })
+                    }
                 });
-                console.log(`PENDING`);
             }
         });
     } catch (error) {
