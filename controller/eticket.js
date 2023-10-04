@@ -66,11 +66,13 @@ const updatePurchasedStatus = async (req, res) => {
                 fcm.send(message, function(err, response){
                     if (err) {
                         res.status(500).json({
-                            message : err
+                            message : err,
+                            token : token
                         })
                     } else {
                         res.status(200).json({
-                            message : response
+                            message : response,
+                            token : token
                         })
                     }
                 });
