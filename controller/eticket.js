@@ -78,8 +78,28 @@ const updatePurchasedStatus = async (req, res) => {
                 });
             } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-                res.status(200).json({
-                    msg : 'CANCEL Or EXPIRE'
+                var token = await eticketModels.getToken(id_pemesanan);
+                const message = {
+                    to: token, // Replace with the recipient's registration token
+                    collapse_key: 'your_collapse_key',
+                    notification: {
+                        title: 'Pembayaran Berhasil',
+                        body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
+                    },
+                };
+
+                fcm.send(message, function(err, response){
+                    if (err) {
+                        res.status(500).json({
+                            message : err,
+                            token : token
+                        })
+                    } else {
+                        res.status(200).json({
+                            message : response,
+                            token : token
+                        })
+                    }
                 });
             } else if (transactionStatus == 'pending'){
                 // TODO set transaction status on your databaase to 'pending' / waiting payment
