@@ -50,10 +50,9 @@ const updatePurchasedStatus = async (req, res) => {
             let id_pemesanan = statusResponse.order_id;
             let respon_midtrans = JSON.stringify(statusResponse);
             let transactionStatus = statusResponse.transaction_status;
-
+            token = await eticketModels.getToken(id_pemesanan);
             if (transactionStatus == 'settlement'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-                token = await eticketModels.getToken(id_pemesanan);
                 const message = {
                     to: token, // Replace with the recipient's registration token
                     collapse_key: 'your_collapse_key',
@@ -83,10 +82,28 @@ const updatePurchasedStatus = async (req, res) => {
                 });
             } else if (transactionStatus == 'pending'){
                 // TODO set transaction status on your databaase to 'pending' / waiting payment
-                res.status(200).json({
-                    msg : 'PENDING'
+                const message = {
+                    to: token, // Replace with the recipient's registration token
+                    collapse_key: 'your_collapse_key',
+                    notification: {
+                        title: 'Menunggu Pembayaran',
+                        body: 'Terima Kasih Untuk Pemesanannya, Segera Selesai Pembayaran Kamu.',
+                    },
+                };
+
+                fcm.send(message, function(err, response){
+                    if (err) {
+                        res.status(500).json({
+                            message : err,
+                            token : token
+                        })
+                    } else {
+                        res.status(200).json({
+                            message : response,
+                            token : token
+                        })
+                    }
                 });
-                console.log(`PENDING`);
             }
         });
     } catch (error) {
