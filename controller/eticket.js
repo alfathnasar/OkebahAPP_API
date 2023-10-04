@@ -50,7 +50,7 @@ const updatePurchasedStatus = async (req, res) => {
             let id_pemesanan = statusResponse.order_id;
             let respon_midtrans = JSON.stringify(statusResponse);
             let transactionStatus = statusResponse.transaction_status;
-            token = await eticketModels.getToken(id_pemesanan);
+            var token = await eticketModels.getToken(id_pemesanan);
             if (transactionStatus == 'settlement'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 const message = {
