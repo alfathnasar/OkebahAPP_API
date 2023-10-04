@@ -32,7 +32,7 @@ const getETicket = async (req, res) => {
     try {
         const {username, jenis_transportasi} = req.params;
         const [data] = await eticketModels.getETicket(username, jenis_transportasi);
-        var token = await eticketModels.getToken(id_pemesanan);
+        var token = await eticketModels.getToken('ID20231004153224');
         res.status(200).json({
             data : data,
             token : token
