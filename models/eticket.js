@@ -31,7 +31,7 @@ const getToken = async (id_pemesanan) => {
     WHERE pemesanan_eticket.username = pengguna.username AND
     pemesanan_eticket.id_pemesanan = '${id_pemesanan}';
     `;
-    
+
     try {
         const [rows, fields] = await dbPool.execute(sqlQuery);
 
@@ -44,9 +44,11 @@ const getToken = async (id_pemesanan) => {
             return null;
         }
     } catch (error) {
-        // Handle database query errors here
-        console.error('Error retrieving token:', error);
-        throw error;
+        console.error('Error retrieving token from the database:', error);
+        res.status(500).json({
+            message: 'Error retrieving token from the database',
+            error: error.message
+        });
     }
 }
 
