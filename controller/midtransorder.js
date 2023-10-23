@@ -1,9 +1,9 @@
 const midtransClient = require('midtrans-client');
 // Create Core API instance
 const coreApi = new midtransClient.CoreApi({
-    isProduction : false,
-    serverKey : 'SB-Mid-server-qZ7YQftleKExaQ_O2cMBb5kR',
-    clientKey : 'SB-Mid-client-SNUTQw3_NYOZkQlR'
+    isProduction : true,
+    serverKey : 'Mid-server-pGKSF6N7-jurdynpscsRvTuG',
+    clientKey : 'Mid-client-DOUoyWAyeJREnEY3'
 });
 
 
