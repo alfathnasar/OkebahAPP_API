@@ -54,124 +54,96 @@ const updatePurchasedStatus = async (req, res) => {
             console.log(transactionStatus); 
             console.log(respon_midtrans); 
 
-            var token = await eticketModels.getToken(id_pemesanan);
-            const message = {
-                to: token, // Replace with the recipient's registration token
-                collapse_key: 'your_collapse_key',
-                notification: {
-                    title: 'Pembayaran Berhasil',
-                    body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
-                },
-            };
+            if (transactionStatus == 'settlement'){
+                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+                var token = await eticketModels.getToken(id_pemesanan);
+                const message = {
+                    to: token, // Replace with the recipient's registration token
+                    collapse_key: 'your_collapse_key',
+                    notification: {
+                        title: 'Pembayaran Berhasil',
+                        body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
+                    },
+                };
 
-            fcm.send(message, function(err, response){
-                if (err) {
-                    res.status(500).json({
-                        message : err,
-                        token : token
-                    })
-                } else {
-                    res.status(200).json({
-                        message : response,
-                        token : token
-                    })
-                }
-            });
+                fcm.send(message, function(err, response){
+                    if (err) {
+                        res.status(500).json({
+                            message : err,
+                            token : token
+                        })
+                    } else {
+                        res.status(200).json({
+                            message : response,
+                            token : token
+                        })
+                    }
+                });
 
-            res.status(200).json({
-                message : 'Berhasil'
-            })
+                res.status(200).json({
+                    message: "Berhasil",
+                });
 
-            // if (transactionStatus == 'settlement'){
-            //     await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-            //     var token = await eticketModels.getToken(id_pemesanan);
-            //     const message = {
-            //         to: token, // Replace with the recipient's registration token
-            //         collapse_key: 'your_collapse_key',
-            //         notification: {
-            //             title: 'Pembayaran Berhasil',
-            //             body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
-            //         },
-            //     };
+            } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
+                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+                var token = await eticketModels.getToken(id_pemesanan);
+                const message = {
+                    to: token, // Replace with the recipient's registration token
+                    collapse_key: 'your_collapse_key',
+                    notification: {
+                        title: 'Pembayaran Gagal',
+                        body: 'Batas Waktu Pembayaran Anda Telah Habis',
+                    },
+                };
 
-            //     fcm.send(message, function(err, response){
-            //         if (err) {
-            //             res.status(500).json({
-            //                 message : err,
-            //                 token : token
-            //             })
-            //         } else {
-            //             res.status(200).json({
-            //                 message : response,
-            //                 token : token
-            //             })
-            //         }
-            //     });
+                fcm.send(message, function(err, response){
+                    if (err) {
+                        res.status(500).json({
+                            message : err,
+                            token : token
+                        })
+                    } else {
+                        res.status(200).json({
+                            message : response,
+                            token : token
+                        })
+                    }
+                });
 
-            //     res.status(200).json({
-            //         message: "Berhasil",
-            //     });
+                res.status(200).json({
+                    message: "Berhasil",
+                });
 
-            // } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
-            //     await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-            //     var token = await eticketModels.getToken(id_pemesanan);
-            //     const message = {
-            //         to: token, // Replace with the recipient's registration token
-            //         collapse_key: 'your_collapse_key',
-            //         notification: {
-            //             title: 'Pembayaran Gagal',
-            //             body: 'Batas Waktu Pembayaran Anda Telah Habis',
-            //         },
-            //     };
+            } else if (transactionStatus == 'pending'){
+                // TODO set transaction status on your databaase to 'pending' / waiting payment
+                var token = await eticketModels.getToken(id_pemesanan);
+                const message = {
+                    to: token, // Replace with the recipient's registration token
+                    collapse_key: 'your_collapse_key',
+                    notification: {
+                        title: 'Menunggu Pembayaran',
+                        body: 'Segera Selesaikan Pembayaran Kamu Sebelum Batas Waktu',
+                    },
+                };
 
-            //     fcm.send(message, function(err, response){
-            //         if (err) {
-            //             res.status(500).json({
-            //                 message : err,
-            //                 token : token
-            //             })
-            //         } else {
-            //             res.status(200).json({
-            //                 message : response,
-            //                 token : token
-            //             })
-            //         }
-            //     });
+                fcm.send(message, function(err, response){
+                    if (err) {
+                        res.status(500).json({
+                            message : err,
+                            token : token
+                        })
+                    } else {
+                        res.status(200).json({
+                            message : response,
+                            token : token
+                        })
+                    }
+                });
 
-            //     res.status(200).json({
-            //         message: "Berhasil",
-            //     });
-
-            // } else if (transactionStatus == 'pending'){
-            //     // TODO set transaction status on your databaase to 'pending' / waiting payment
-            //     var token = await eticketModels.getToken(id_pemesanan);
-            //     const message = {
-            //         to: token, // Replace with the recipient's registration token
-            //         collapse_key: 'your_collapse_key',
-            //         notification: {
-            //             title: 'Menunggu Pembayaran',
-            //             body: 'Segera Selesaikan Pembayaran Kamu Sebelum Batas Waktu',
-            //         },
-            //     };
-
-            //     fcm.send(message, function(err, response){
-            //         if (err) {
-            //             res.status(500).json({
-            //                 message : err,
-            //                 token : token
-            //             })
-            //         } else {
-            //             res.status(200).json({
-            //                 message : response,
-            //                 token : token
-            //             })
-            //         }
-            //     });
-
-            //     res.status(200).json({
-            //         message: "Berhasil",
-            //     });
-            // }
+                res.status(200).json({
+                    message: "Berhasil",
+                });
+            }
 
         });
     } catch (error) {
