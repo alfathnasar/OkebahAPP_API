@@ -76,6 +76,11 @@ const updatePurchasedStatus = async (req, res) => {
                         })
                     }
                 });
+
+                res.status(200).json({
+                    message: "Berhasil",
+                });
+
             } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 var token = await eticketModels.getToken(id_pemesanan);
@@ -101,6 +106,11 @@ const updatePurchasedStatus = async (req, res) => {
                         })
                     }
                 });
+
+                res.status(200).json({
+                    message: "Berhasil",
+                });
+
             } else if (transactionStatus == 'pending'){
                 // TODO set transaction status on your databaase to 'pending' / waiting payment
                 var token = await eticketModels.getToken(id_pemesanan);
@@ -125,6 +135,10 @@ const updatePurchasedStatus = async (req, res) => {
                             token : token
                         })
                     }
+                });
+
+                res.status(200).json({
+                    message: "Berhasil",
                 });
             }
         });
