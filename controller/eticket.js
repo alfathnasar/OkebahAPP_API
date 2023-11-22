@@ -55,8 +55,7 @@ const updatePurchasedStatus = async (req, res) => {
             console.log(respon_midtrans); 
 
             res.status(200).json({
-                message : response,
-                token : token
+                message : 'Berhasil'
             })
 
             // if (transactionStatus == 'settlement'){
