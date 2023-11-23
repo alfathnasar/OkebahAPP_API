@@ -37,7 +37,7 @@ const getAllPurchased = (username) => {
 FROM pemesanan_eticket
 JOIN transportasi ON pemesanan_eticket.id_transportasi = transportasi.id_transportasi
 JOIN destinasi ON pemesanan_eticket.id_destinasi = destinasi.id_destinasi
-WHERE pemesanan_eticket.username = 'Alfathnasar';`;
+WHERE pemesanan_eticket.username = '${username}';`;
     return dbPool.execute(sqlQuery);
 }
 
