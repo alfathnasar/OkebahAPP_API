@@ -32,6 +32,6 @@ app.post('/upload', upload.single('image'), (req, res) => {
   });
   
 
-app.listen(PORT, ()=> {
+app.listen(4000, ()=> {
     console.log(`Server Berjalan di PORT : ${PORT}`);
 });

@@ -2,9 +2,9 @@ const eticketModels = require('../models/eticket.js');
 const midtransClient = require('midtrans-client');
 const purchasedModels = require('../models/purchased.js');
 
-var FCM = require('fcm-node');
-    var serverKey = 'AAAAhbrShNE:APA91bEkqEuL8jdvJ9NYfyiq6HJ_lZjf4Nue294f5v43f7JpEi7zYJsiR7a_s9rU9zi3I70H-cFZ15q-g4RzSRSr9R6sFjpBpnrsrl475owtdFkhhQEtbAgL4RrLjXlOvC6S7vUZFJZ6'; //put your server key here
-    var fcm = new FCM(serverKey);
+// var FCM = require('fcm-node');
+//     var serverKey = 'AAAAhbrShNE:APA91bEkqEuL8jdvJ9NYfyiq6HJ_lZjf4Nue294f5v43f7JpEi7zYJsiR7a_s9rU9zi3I70H-cFZ15q-g4RzSRSr9R6sFjpBpnrsrl475owtdFkhhQEtbAgL4RrLjXlOvC6S7vUZFJZ6'; //put your server key here
+//     var fcm = new FCM(serverKey);
 
 // Create Core API instance
 const coreApi = new midtransClient.CoreApi({
@@ -57,28 +57,28 @@ const updatePurchasedStatus = async (req, res) => {
             if (transactionStatus == 'settlement'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 var token = await eticketModels.getToken(id_pemesanan);
-                const message = {
-                    to: token, // Replace with the recipient's registration token
-                    collapse_key: 'your_collapse_key',
-                    notification: {
-                        title: 'Pembayaran Berhasil',
-                        body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
-                    },
-                };
+                // const message = {
+                //     to: token, // Replace with the recipient's registration token
+                //     collapse_key: 'your_collapse_key',
+                //     notification: {
+                //         title: 'Pembayaran Berhasil',
+                //         body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
+                //     },
+                // };
 
-                fcm.send(message, function(err, response){
-                    if (err) {
-                        res.status(500).json({
-                            message : err,
-                            token : token
-                        })
-                    } else {
-                        res.status(200).json({
-                            message : response,
-                            token : token
-                        })
-                    }
-                });
+                // fcm.send(message, function(err, response){
+                //     if (err) {
+                //         res.status(500).json({
+                //             message : err,
+                //             token : token
+                //         })
+                //     } else {
+                //         res.status(200).json({
+                //             message : response,
+                //             token : token
+                //         })
+                //     }
+                // });
 
                 res.status(200).json({
                     message: "Berhasil",
@@ -87,28 +87,28 @@ const updatePurchasedStatus = async (req, res) => {
             } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
                 await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
                 var token = await eticketModels.getToken(id_pemesanan);
-                const message = {
-                    to: token, // Replace with the recipient's registration token
-                    collapse_key: 'your_collapse_key',
-                    notification: {
-                        title: 'Pembayaran Gagal',
-                        body: 'Batas Waktu Pembayaran Anda Telah Habis',
-                    },
-                };
+                // const message = {
+                //     to: token, // Replace with the recipient's registration token
+                //     collapse_key: 'your_collapse_key',
+                //     notification: {
+                //         title: 'Pembayaran Gagal',
+                //         body: 'Batas Waktu Pembayaran Anda Telah Habis',
+                //     },
+                // };
 
-                fcm.send(message, function(err, response){
-                    if (err) {
-                        res.status(500).json({
-                            message : err,
-                            token : token
-                        })
-                    } else {
-                        res.status(200).json({
-                            message : response,
-                            token : token
-                        })
-                    }
-                });
+                // fcm.send(message, function(err, response){
+                //     if (err) {
+                //         res.status(500).json({
+                //             message : err,
+                //             token : token
+                //         })
+                //     } else {
+                //         res.status(200).json({
+                //             message : response,
+                //             token : token
+                //         })
+                //     }
+                // });
 
                 res.status(200).json({
                     message: "Berhasil",
@@ -117,28 +117,28 @@ const updatePurchasedStatus = async (req, res) => {
             } else if (transactionStatus == 'pending'){
                 // TODO set transaction status on your databaase to 'pending' / waiting payment
                 var token = await eticketModels.getToken(id_pemesanan);
-                const message = {
-                    to: token, // Replace with the recipient's registration token
-                    collapse_key: 'your_collapse_key',
-                    notification: {
-                        title: 'Menunggu Pembayaran',
-                        body: 'Segera Selesaikan Pembayaran Kamu Sebelum Batas Waktu',
-                    },
-                };
+                // const message = {
+                //     to: token, // Replace with the recipient's registration token
+                //     collapse_key: 'your_collapse_key',
+                //     notification: {
+                //         title: 'Menunggu Pembayaran',
+                //         body: 'Segera Selesaikan Pembayaran Kamu Sebelum Batas Waktu',
+                //     },
+                // };
 
-                fcm.send(message, function(err, response){
-                    if (err) {
-                        res.status(500).json({
-                            message : err,
-                            token : token
-                        })
-                    } else {
-                        res.status(200).json({
-                            message : response,
-                            token : token
-                        })
-                    }
-                });
+                // fcm.send(message, function(err, response){
+                //     if (err) {
+                //         res.status(500).json({
+                //             message : err,
+                //             token : token
+                //         })
+                //     } else {
+                //         res.status(200).json({
+                //             message : response,
+                //             token : token
+                //         })
+                //     }
+                // });
 
                 res.status(200).json({
                     message: "Berhasil",
