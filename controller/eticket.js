@@ -9,8 +9,8 @@ const purchasedModels = require('../models/purchased.js');
 // Create Core API instance
 const coreApi = new midtransClient.CoreApi({
     isProduction : true,
-    serverKey : 'Mid-server-pGKSF6N7-jurdynpscsRvTuG',
-    clientKey : 'Mid-client-DOUoyWAyeJREnEY3'
+    clientKey : 'Mid-client-DOUoyWAyeJREnEY3',
+    serverKey : 'Mid-server-pGKSF6N7-jurdynpscsRvTuG'
 });
 
 const getDataPenumpang = async (req, res) => {
