@@ -7,6 +7,12 @@ const getDataPenumpang = (username,id_pemesanan) => {
     return dbPool.execute(sqlQuery);
 }
 
+const getDataPenumpangAgen = (username) => {
+    const sqlQuery = `SELECT *FROM pengguna
+    where username = '${username}';`;
+    return dbPool.execute(sqlQuery);
+}
+
 const getETicket = (username, jenis_transportasi) => {
     const sqlQuery = `SELECT eticket.kode_booking,eticket.id_destinasi,tanggal,pukul,nama_penumpang,jk, transportasi.jenis_transportasi, nama_transportasi, 
     destinasi.asal,tujuan,pelabuhan_asal_speed, pelabuhan_tujuan_speed, pelabuhan_asal_fery, pelabuhan_tujuan_fery

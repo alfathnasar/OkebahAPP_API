@@ -28,6 +28,21 @@ const getDataPenumpang = async (req, res) => {
     }
 }
 
+const getDataPenumpangAgen = async (req, res) => {
+    try {
+        const {username} = req.params;
+        const [data] = await eticketModels.getDataPenumpangAgen(username);
+        res.status(200).json({
+            data : data
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg : 'SERVER ERROR',
+            serverMsg : error,
+        })
+    }
+}
+
 const getETicket = async (req, res) => {
     try {
         const {username, jenis_transportasi} = req.params;
@@ -126,5 +141,6 @@ const updatePurchasedStatus = async (req, res) => {
 module.exports = {
     getDataPenumpang,
     getETicket,
-    updatePurchasedStatus
+    updatePurchasedStatus,
+    getDataPenumpangAgen
 }
