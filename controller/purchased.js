@@ -2,9 +2,9 @@ const purchasedModels = require('../models/purchased.js');
 const midtransClient = require('midtrans-client');
 // Create Core API instance
 const coreApi = new midtransClient.CoreApi({
-    isProduction : true,
-    clientKey : 'Mid-client-DOUoyWAyeJREnEY3',
-    serverKey : 'Mid-server-pGKSF6N7-jurdynpscsRvTuG'
+    isProduction : false,
+    clientKey : 'SB-Mid-client-SNUTQw3_NYOZkQlR',
+    serverKey : 'SB-Mid-server-qZ7YQftleKExaQ_O2cMBb5kR'
 });
 
 
