@@ -7,7 +7,6 @@ var FCM = require('fcm-node');
     var fcm = new FCM(serverKey);
 
 // Create Core API instance
-//MODE SANDBOX
 const coreApi = new midtransClient.CoreApi({
     isProduction : false,
     clientKey : 'SB-Mid-client-SNUTQw3_NYOZkQlR',
