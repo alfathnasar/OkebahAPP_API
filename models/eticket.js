@@ -62,5 +62,6 @@ module.exports = {
     getDataPenumpang,
     getETicket,
     updatePurchasedStatus,
-    getToken
+    getToken,
+    getDataPenumpangAgen
 }
