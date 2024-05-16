@@ -7,9 +7,9 @@ const getDataPenumpang = (username,id_pemesanan) => {
     return dbPool.execute(sqlQuery);
 }
 
-const getDataPenumpangAgen = (username) => {
-    const sqlQuery = `SELECT *FROM pengguna
-    where username = '${username}';`;
+const getDataPenumpangAgen = (kode_speed) => {
+    const sqlQuery = `SELECT *FROM eticket
+    where id_transportasi = '${kode_speed}';`;
     return dbPool.execute(sqlQuery);
 }
 

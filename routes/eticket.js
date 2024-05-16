@@ -3,7 +3,7 @@
     const router = express.Router();
 
     router.get('/:username/:id_pemesanan', eticketController.getDataPenumpang);
-    router.get('/:username', eticketController.getDataPenumpangAgen);
+    router.get('/:kode_speed', eticketController.getDataPenumpangAgen);
     router.get('/booking/:username/:jenis_transportasi', eticketController.getETicket);
     router.post('/', eticketController.updatePurchasedStatus);
 
