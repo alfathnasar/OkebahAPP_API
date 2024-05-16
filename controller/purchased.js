@@ -1,6 +1,7 @@
 const purchasedModels = require('../models/purchased.js');
 const midtransClient = require('midtrans-client');
 // Create Core API instance
+//MODE SANDBOX
 const coreApi = new midtransClient.CoreApi({
     isProduction : false,
     clientKey : 'SB-Mid-client-SNUTQw3_NYOZkQlR',
