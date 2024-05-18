@@ -183,6 +183,5 @@ module.exports = {
     getETicket,
     updatePurchasedStatus,
     getDataPenumpangAgen,
-    updateStatusEticket,
-    getStatusEticket
+    updateStatusEticket
 }
