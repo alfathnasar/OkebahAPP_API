@@ -44,20 +44,44 @@ const getDataPenumpangAgen = async (req, res) => {
 }
 
 const updateStatusEticket = async (req, res) => {
-    const {kode_booking} = req.params;
+    const { kode_booking } = req.params;
     try {
-        const result = await updateStatusEticket(kode_booking);
-
-        if (result) {
-            return res.status(200).json({ message: 'Status updated to check' });
-        } else {
-            return res.status(200).json({ message: 'Status is already check' });
+        const currentStatus = await eticketModels.getStatusEticket(kode_booking);
+        
+        if (currentStatus === 'check') {
+            return res.status(200).json({
+                msg: 'Status is already updated to check'
+            });
         }
+        
+        await eticketModels.updateStatusEticket(kode_booking);
+        res.status(200).json({
+            msg: 'Status updated to check successfully'
+        });
     } catch (error) {
-        console.error('Error:', error);
-        return res.status(500).json({ message: 'Internal server error' });
+        console.error('Error updating status:', error);
+        res.status(500).json({
+            msg: 'SERVER ERROR',
+            serverMsg: error.message // Sending only the error message to avoid exposing stack trace
+        });
     }
-}
+};
+
+// const updateStatusEticket = async (req, res) => {
+//     const {kode_booking} = req.params;
+//     try {
+//         await eticketModels.updateStatusEticket(kode_booking);
+//         res.status(200).json({
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             msg : 'SERVER ERROR',
+//             serverMsg : error
+//         });
+//     }
+// }
+
+
 
 const getETicket = async (req, res) => {
     try {
@@ -160,4 +184,5 @@ module.exports = {
     updatePurchasedStatus,
     getDataPenumpangAgen,
     updateStatusEticket,
+    getStatusEticket
 }
