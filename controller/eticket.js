@@ -46,7 +46,7 @@ const getDataPenumpangAgen = async (req, res) => {
 const updateStatusEticket = async (req, res) => {
     const {kode_booking} = req.params;
     try {
-        await eticketModels.updatePurchasedStatus(kode_booking);
+        await eticketModels.updateStatusEticket(kode_booking);
         res.status(200).json({
             data : kode_booking
         });

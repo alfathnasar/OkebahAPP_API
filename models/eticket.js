@@ -14,7 +14,7 @@ const getDataPenumpangAgen = (kode_speed) => {
 }
 
 const updateStatusEticket = (kode_booking) => {
-    const sqlQuery = `UPDATE eticket SET status = "check"
+    const sqlQuery = `UPDATE eticket SET status = 'check'
     where kode_booking = '${kode_booking}'`;
     return dbPool.execute(sqlQuery);
     // const connection = await dbPool.getConnection();
