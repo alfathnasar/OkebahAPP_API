@@ -6,6 +6,6 @@
     router.get('/:kode_speed', eticketController.getDataPenumpangAgen);
     router.get('/booking/:username/:jenis_transportasi', eticketController.getETicket);
     router.post('/', eticketController.updatePurchasedStatus);
-    router.get('/checkin/:kode_booking', eticketController.updateStatusEticket);
+    router.patch('/checkin/:kode_booking', eticketController.updateStatusEticket);
 
     module.exports = router;
