@@ -50,13 +50,13 @@ const updateStatusEticket = async (req, res) => {
         
         if (currentStatus === 'check') {
             return res.status(200).json({
-                msg: 'Status is already updated to check'
+                msg: 'ETICKET SUDAH DIGUNAKAN'
             });
         }
         
         await eticketModels.updateStatusEticket(kode_booking);
         res.status(200).json({
-            msg: 'Status updated to check successfully'
+            msg: 'CHECK IN BERHASIL'
         });
     } catch (error) {
         console.error('Error updating status:', error);
@@ -66,22 +66,6 @@ const updateStatusEticket = async (req, res) => {
         });
     }
 };
-
-// const updateStatusEticket = async (req, res) => {
-//     const {kode_booking} = req.params;
-//     try {
-//         await eticketModels.updateStatusEticket(kode_booking);
-//         res.status(200).json({
-//         });
-//     } catch (error) {
-//         res.status(500).json({
-//             msg : 'SERVER ERROR',
-//             serverMsg : error
-//         });
-//     }
-// }
-
-
 
 const getETicket = async (req, res) => {
     try {
