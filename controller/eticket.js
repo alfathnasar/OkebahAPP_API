@@ -48,6 +48,7 @@ const updateStatusEticket = async (req, res) => {
     try {
         await eticketModels.updatePurchasedStatus(kode_booking);
         res.status(200).json({
+            data : kode_booking
         });
     } catch (error) {
         res.status(500).json({
