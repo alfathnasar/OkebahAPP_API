@@ -14,49 +14,52 @@ const getDataPenumpangAgen = (kode_speed) => {
 }
 
 const updateStatusEticket = async (kode_booking) => {
-    const connection = await dbPool.getConnection();
-    try {
-        // Mulai transaksi
-        await connection.beginTransaction();
+    const sqlQuery = `UPDATE eticket SET status = 'check'
+    where kode_booking = '${kode_booking}';`;
+    return dbPool.execute(sqlQuery);
+    // const connection = await dbPool.getConnection();
+    // try {
+    //     // Mulai transaksi
+    //     await connection.beginTransaction();
 
-        // Cek status saat ini
-        const [rows] = await connection.query(
-            `SELECT status FROM eticket WHERE kode_booking = ?`,
-            [kode_booking]
-        );
+    //     // Cek status saat ini
+    //     const [rows] = await connection.query(
+    //         `SELECT status FROM eticket WHERE kode_booking = ?`,
+    //         [kode_booking]
+    //     );
 
-        if (rows.length === 0) {
-            // Jika tidak ada record dengan kode_booking tersebut
-            await connection.rollback();
-            return false;
-        }
+    //     if (rows.length === 0) {
+    //         // Jika tidak ada record dengan kode_booking tersebut
+    //         await connection.rollback();
+    //         return false;
+    //     }
 
-        const currentStatus = rows[0].status;
+    //     const currentStatus = rows[0].status;
 
-        if (currentStatus === 'uncheck') {
-            // Update status menjadi 'check'
-            await connection.query(
-                `UPDATE eticket SET status = 'check' WHERE kode_booking = ?`,
-                [kode_booking]
-            );
+    //     if (currentStatus === 'uncheck') {
+    //         // Update status menjadi 'check'
+    //         await connection.query(
+    //             `UPDATE eticket SET status = 'check' WHERE kode_booking = ?`,
+    //             [kode_booking]
+    //         );
 
-            // Commit transaksi
-            await connection.commit();
-            return true;
-        } else {
-            // Rollback transaksi jika status bukan 'uncheck'
-            await connection.rollback();
-            return false;
-        }
-    } catch (error) {
-        // Rollback transaksi jika terjadi kesalahan
-        await connection.rollback();
-        console.error('Error updating e-ticket status:', error);
-        throw error;
-    } finally {
-        // Lepaskan koneksi kembali ke pool
-        connection.release();
-    }
+    //         // Commit transaksi
+    //         await connection.commit();
+    //         return true;
+    //     } else {
+    //         // Rollback transaksi jika status bukan 'uncheck'
+    //         await connection.rollback();
+    //         return false;
+    //     }
+    // } catch (error) {
+    //     // Rollback transaksi jika terjadi kesalahan
+    //     await connection.rollback();
+    //     console.error('Error updating e-ticket status:', error);
+    //     throw error;
+    // } finally {
+    //     // Lepaskan koneksi kembali ke pool
+    //     connection.release();
+    // }
 };
 
 
