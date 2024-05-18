@@ -13,7 +13,7 @@ const getDataPenumpangAgen = (kode_speed) => {
     return dbPool.execute(sqlQuery);
 }
 
-const updateStatusEticket = async (kode_booking) => {
+const updateStatusEticket = (kode_booking) => {
     const sqlQuery = `UPDATE eticket SET status = 'check'
     where kode_booking = '${kode_booking}';`;
     return dbPool.execute(sqlQuery);
