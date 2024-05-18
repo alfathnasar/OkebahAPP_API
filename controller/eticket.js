@@ -46,16 +46,14 @@ const getDataPenumpangAgen = async (req, res) => {
 const updateStatusEticket = async (req, res) => {
     const {kode_booking} = req.params;
     try {
-        const result = await updateStatusEticket(kode_booking);
-
-        if (result) {
-            return res.status(200).json({ message: 'Status updated to check' });
-        } else {
-            return res.status(200).json({ message: 'Status is already check' });
-        }
+        await eticketModels.updatePurchasedStatus(kode_booking);
+        res.status(200).json({
+        });
     } catch (error) {
-        console.error('Error:', error);
-        return res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({
+            msg : 'SERVER ERROR',
+            serverMsg : error
+        });
     }
 }
 
