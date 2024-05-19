@@ -30,8 +30,8 @@ const getDataPenumpang = async (req, res) => {
 
 const getDataPenumpangAgen = async (req, res) => {
     try {
-        const {kode_speed} = req.params;
-        const [data] = await eticketModels.getDataPenumpangAgen(kode_speed);
+        const {kode_speed, id_destinasi} = req.params;
+        const [data] = await eticketModels.getDataPenumpangAgen(kode_speed, id_destinasi);
         res.status(200).json({
             data : data
         });
