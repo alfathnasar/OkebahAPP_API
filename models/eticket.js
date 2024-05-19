@@ -19,6 +19,12 @@ const getStatusEticket = async (kode_booking) => {
     return rows[0]?.status;
 };
 
+const getFilterEticket = (body, id_transportasi) => {
+    const sqlQuery = `SELECT *FROM eticket where id_destinasi='${body.id_destinasi}', tanggal='${body.tanggal}', 
+                    pukul='${body.pukul}' where id_transportasi ='${id_transportasi}'`;
+    return dbPool.execute(sqlQuery);
+}
+
 const updateStatusEticket = async (kode_booking) => {
     const sqlQuery = `UPDATE eticket SET status = 'check' WHERE kode_booking = ?`;
     return dbPool.execute(sqlQuery, [kode_booking]);
@@ -77,5 +83,6 @@ module.exports = {
     getToken,
     getDataPenumpangAgen,
     updateStatusEticket,
-    getStatusEticket
+    getStatusEticket,
+    getFilterEticket
 }

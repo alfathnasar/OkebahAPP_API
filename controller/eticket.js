@@ -43,6 +43,22 @@ const getDataPenumpangAgen = async (req, res) => {
     }
 }
 
+const filterEticket = async (req, res) => {
+    const {id_destinasi} = req.params;
+    const {body} = req;
+    try {
+        const [data] = await eticketModels.getFilterEticket(body, id_destinasi);
+        res.status(200).json({
+            data : data
+        })
+    } catch (error) {
+        res.status(500).json({
+            msg : 'SERVER ERROR',
+            serverMsg : error
+        });
+    }
+}
+
 const updateStatusEticket = async (req, res) => {
     const { kode_booking } = req.params;
     try {
@@ -167,5 +183,6 @@ module.exports = {
     getETicket,
     updatePurchasedStatus,
     getDataPenumpangAgen,
-    updateStatusEticket
+    updateStatusEticket,
+    filterEticket
 }
