@@ -141,11 +141,13 @@ const updatePurchasedStatus = async (req, res) => {
                 if (responseSent) return; // Ensure we don't send multiple responses
                 responseSent = true;
                 if (err) {
+                    console.log("NOTIFICATION GAGAL DIKIRIM = "+err)
                     res.status(500).json({
                         message: err,
                         token: token
                     });
                 } else {
+                    console.log("NOTIFICATION BERHASIL DIKIRIM = "+response)
                     res.status(200).json({
                         message: response,
                         token: token
