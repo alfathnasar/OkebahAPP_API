@@ -19,9 +19,9 @@ const getStatusEticket = async (kode_booking) => {
     return rows[0]?.status;
 };
 
-const getFilterEticket = (body, id_transportasi) => {
+const getFilterEticket = (body, kode_speed) => {
     const sqlQuery = `SELECT *FROM eticket where id_destinasi='${body.id_destinasi}' && tanggal='${body.tanggal}' &&
-                    pukul='${body.pukul}' && id_transportasi ='${id_transportasi}';`;
+                    pukul='${body.pukul}' && id_transportasi ='${kode_speed}';`;
     return dbPool.execute(sqlQuery);
 }
 

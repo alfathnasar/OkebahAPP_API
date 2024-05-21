@@ -44,10 +44,10 @@ const getDataPenumpangAgen = async (req, res) => {
 }
 
 const filterEticket = async (req, res) => {
-    const {id_destinasi} = req.params;
+    const {kode_speed} = req.params;
     const {body} = req;
     try {
-        const [data] = await eticketModels.getFilterEticket(body, id_destinasi);
+        const [data] = await eticketModels.getFilterEticket(body, kode_speed);
         res.status(200).json({
             data : data
         })
@@ -100,83 +100,70 @@ const getETicket = async (req, res) => {
 
 const updatePurchasedStatus = async (req, res) => {
     try {
-        coreApi.transaction.notification(req.body)
-        .then(async (statusResponse)=>{
-            let id_pemesanan = statusResponse.order_id;
-            let respon_midtrans = JSON.stringify(statusResponse);
-            let transactionStatus = statusResponse.transaction_status;
+        const statusResponse = await coreApi.transaction.notification(req.body);
+        let id_pemesanan = statusResponse.order_id;
+        let respon_midtrans = JSON.stringify(statusResponse);
+        let transactionStatus = statusResponse.transaction_status;
 
-            console.log(transactionStatus); 
-            console.log(respon_midtrans); 
+        console.log(transactionStatus);
+        console.log(respon_midtrans);
 
-            if (transactionStatus == 'settlement'){
-                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-                var token = await eticketModels.getToken(id_pemesanan);
-                const message = {
-                    to: token, // Replace with the recipient's registration token
-                    collapse_key: 'your_collapse_key',
-                    notification: {
-                        title: 'Pembayaran Berhasil',
-                        body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
-                    },
-                };
+        let token;
+        let message;
+        let responseSent = false;
 
-                fcm.send(message, function(err, response){
-                    if (err) {
-                        res.status(500).json({
-                            message : err,
-                            token : token
-                        })
-                    } else {
-                        res.status(200).json({
-                            message : response,
-                            token : token
-                        })
-                    }
-                });
+        if (transactionStatus === 'settlement') {
+            await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+            token = await eticketModels.getToken(id_pemesanan);
+            message = {
+                to: token, // Replace with the recipient's registration token
+                collapse_key: 'your_collapse_key',
+                notification: {
+                    title: 'Pembayaran Berhasil',
+                    body: 'Terima Kasih Untuk Pembayarannya, ETicket Kamu Sudah Terbit.',
+                },
+            };
+        } else if (transactionStatus === 'cancel' || transactionStatus === 'expire') {
+            await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
+            token = await eticketModels.getToken(id_pemesanan);
+            message = {
+                to: token, // Replace with the recipient's registration token
+                collapse_key: 'your_collapse_key',
+                notification: {
+                    title: 'Pembayaran Gagal',
+                    body: 'Batas Waktu Pembayaran Anda Telah Habis',
+                },
+            };
+        }
 
-                res.status(200).json({
-                    message: "Berhasil",
-                });
-
-            } else if (transactionStatus == 'cancel' || transactionStatus == 'expire'){
-                await eticketModels.updatePurchasedStatus(id_pemesanan, respon_midtrans);
-                var token = await eticketModels.getToken(id_pemesanan);
-                const message = {
-                    to: token, // Replace with the recipient's registration token
-                    collapse_key: 'your_collapse_key',
-                    notification: {
-                        title: 'Pembayaran Gagal',
-                        body: 'Batas Waktu Pembayaran Anda Telah Habis',
-                    },
-                };
-
-                fcm.send(message, function(err, response){
-                    if (err) {
-                        res.status(500).json({
-                            message : err,
-                            token : token
-                        })
-                    } else {
-                        res.status(200).json({
-                            message : response,
-                            token : token
-                        })
-                    }
-                });
-
-                res.status(200).json({
-                    message: "Berhasil",
-                });
-            }
-        });
+        if (message) {
+            fcm.send(message, function(err, response) {
+                if (responseSent) return; // Ensure we don't send multiple responses
+                responseSent = true;
+                if (err) {
+                    res.status(500).json({
+                        message: err,
+                        token: token
+                    });
+                } else {
+                    res.status(200).json({
+                        message: response,
+                        token: token
+                    });
+                }
+            });
+        } else {
+            res.status(200).json({
+                message: "Berhasil",
+            });
+        }
     } catch (error) {
         res.status(500).json({
-            msg : res.body,
-            serverMsg : error
+            msg: req.body,
+            serverMsg: error
         });
     }
-}
+};
 
 module.exports = {
     getDataPenumpang,
