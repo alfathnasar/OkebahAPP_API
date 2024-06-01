@@ -3,8 +3,9 @@ const midtransClient = require('midtrans-client');
 const purchasedModels = require('../models/purchased.js');
 
 var FCM = require('fcm-node');
-    var serverKey = 'AAAAhbrShNE:APA91bEkqEuL8jdvJ9NYfyiq6HJ_lZjf4Nue294f5v43f7JpEi7zYJsiR7a_s9rU9zi3I70H-cFZ15q-g4RzSRSr9R6sFjpBpnrsrl475owtdFkhhQEtbAgL4RrLjXlOvC6S7vUZFJZ6'; //put your server key here
+    var serverKey = 'AAAAfdaN1Sc:APA91bEthLbL5ExkT091bCdXp2DtoSgHdoziEJjFPd8QFJmYPCw7OhuhuncSwgBsw3-NkoVG1rNjbBaPTQ2Tbb3TNgEFxygzswdkKqApmGDGu-6-D2APEscDIXb25UpS0k3olvF2OQgh'; //put your server key here
     var fcm = new FCM(serverKey);
+    
 
 // Create Core API instance
 const coreApi = new midtransClient.CoreApi({
