@@ -5,6 +5,7 @@ const getUsers = (username) => {
     return dbPool.execute(sqlQuery);
 }
 
+//OKE
 const createNewUser = (body) => {
     const sqlQuery = `INSERT INTO pengguna (nama, nohp, email, password, token) 
                     values ('${body.nama}', '${body.nohp}', '${body.email}', '${body.password}', '${body.token}')`;
@@ -17,8 +18,8 @@ const updateUser = (body, username) => {
     return dbPool.execute(sqlQuery);
 }
 
-const updateUserToken = (username, token) => {
-    const sqlQuery = `UPDATE pengguna SET token ='${token}' where username ='${username}'`;
+const updateUserToken = (email, token) => {
+    const sqlQuery = `UPDATE pengguna SET token ='${token}' where email ='${email}'`;
     return dbPool.execute(sqlQuery);
 }
 

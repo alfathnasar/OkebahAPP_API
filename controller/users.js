@@ -9,6 +9,7 @@ const getUsers = async (req, res) => {
     
 }
 
+// OKE
 const createNewUser = async (req, res) => {
     const {body} = req;
     try {
@@ -38,10 +39,11 @@ const updateUser = async (req, res) => {
     }
 }
 
+
 const updateUserToken = async (req, res) => {
-    const {username, token} = req.params;
+    const {email, token} = req.params;
     try {
-        await userModels.updateUserToken(username, token);
+        await userModels.updateUserToken(email, token);
         res.status(200).json({
         });
     } catch (error) {
