@@ -23,7 +23,7 @@ const updateUserToken = (username, token) => {
 }
 
 const updateUserPass = (username, password) => {
-    const sqlQuery = `UPDATE pengguna SET password ='${password}' where username ='${username}'`;
+    const sqlQuery = `UPDATE pengguna SET pengguna.password ='${password}' where username ='${username}'`;
     return dbPool.execute(sqlQuery);
 }
 
