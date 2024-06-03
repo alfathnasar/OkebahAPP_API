@@ -22,6 +22,11 @@ const updateUserToken = (username, token) => {
     return dbPool.execute(sqlQuery);
 }
 
+const updateUserPass = (username, password) => {
+    const sqlQuery = `UPDATE pengguna SET password ='${password}' where username ='${username}'`;
+    return dbPool.execute(sqlQuery);
+}
+
 const deleteUser = (username) => {
     const sqlQuery = `DELETE FROM pengguna where username = '${username}'`;
     return dbPool.execute(sqlQuery);
@@ -32,5 +37,6 @@ module.exports = {
     createNewUser,
     updateUser,
     updateUserToken,
-    deleteUser
+    deleteUser,
+    updateUserPass
 }

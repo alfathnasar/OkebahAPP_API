@@ -52,6 +52,20 @@ const updateUserToken = async (req, res) => {
     }
 }
 
+const updateUserPass = async (req, res) => {
+    const {username, password} = req.params;
+    try {
+        await userModels.updateUserPass(username, password);
+        res.status(200).json({
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg : 'SERVER ERROR',
+            serverMsg : error
+        });
+    }
+}
+
 const deleteUser = async (req, res) => {
     const {username} = req.params;
     try {
@@ -71,5 +85,6 @@ module.exports = {
     createNewUser,
     updateUser,
     updateUserToken,
-    deleteUser
+    deleteUser,
+    updateUserPass
 }
