@@ -53,9 +53,10 @@ const updateUserToken = async (req, res) => {
 }
 
 const updateUserPass = async (req, res) => {
-    const {username, password} = req.params;
+    const {username} = req.params;
+    const {body} = req;
     try {
-        await userModels.updateUserPass(username, password);
+        await userModels.updateUserPass(body, username);
         res.status(200).json({
         });
     } catch (error) {

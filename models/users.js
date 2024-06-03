@@ -22,8 +22,8 @@ const updateUserToken = (username, token) => {
     return dbPool.execute(sqlQuery);
 }
 
-const updateUserPass = (username, password) => {
-    const sqlQuery = `UPDATE pengguna SET pengguna.password ='${password}' where username ='${username}'`;
+const updateUserPass = (username) => {
+    const sqlQuery = `UPDATE pengguna SET pengguna.password='${body.password}' where username ='${username}'`;
     return dbPool.execute(sqlQuery);
 }
 
