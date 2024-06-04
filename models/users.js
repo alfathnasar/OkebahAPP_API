@@ -1,7 +1,8 @@
 const dbPool = require('../config/database.js');
 
-const getUsers = (username) => {
-    const sqlQuery = `SELECT *from pengguna where username = '${username}'`;
+//OKE
+const getUsers = (email) => {
+    const sqlQuery = `SELECT *from pengguna where email = '${email}'`;
     return dbPool.execute(sqlQuery);
 }
 
@@ -18,6 +19,7 @@ const updateUser = (body, username) => {
     return dbPool.execute(sqlQuery);
 }
 
+//OKE
 const updateUserToken = (email, token) => {
     const sqlQuery = `UPDATE pengguna SET token ='${token}' where email ='${email}'`;
     return dbPool.execute(sqlQuery);
