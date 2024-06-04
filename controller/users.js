@@ -25,10 +25,10 @@ const createNewUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    const {username} = req.params;
+    const {email} = req.params;
     const {body} = req;
     try {
-        await userModels.updateUser(body, username);
+        await userModels.updateUser(body, email);
         res.status(200).json({
         });
     } catch (error) {

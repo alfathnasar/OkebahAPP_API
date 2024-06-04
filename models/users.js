@@ -13,9 +13,10 @@ const createNewUser = (body) => {
     return dbPool.execute(sqlQuery);    
 }
 
-const updateUser = (body, username) => {
+//OKE
+const updateUser = (body, email) => {
     const sqlQuery = `UPDATE pengguna SET nama='${body.nama}', nohp='${body.nohp}', 
-                    email='${body.email}', password='${body.password}' where username ='${username}'`;
+                    password='${body.password}' where email ='${email}'`;
     return dbPool.execute(sqlQuery);
 }
 
