@@ -8,8 +8,8 @@ const getUsers = (email) => {
 
 //OKE
 const createNewUser = (body) => {
-    const sqlQuery = `INSERT INTO pengguna (nama, nohp, email, password, token) 
-                    values ('${body.nama}', '${body.nohp}', '${body.email}', '${body.password}', '${body.token}')`;
+    const sqlQuery = `INSERT INTO pengguna (nama, nohp, email, token) 
+                    values ('${body.nama}', '${body.nohp}', '${body.email}', '${body.token}')`;
     return dbPool.execute(sqlQuery);    
 }
 
