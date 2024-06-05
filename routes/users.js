@@ -3,10 +3,10 @@ const userController = require('../controller/users.js')
 
 const router = express.Router();
 
-router.get('/:email', userController.getUsers);
+router.get('/:username', userController.getUsers);
 router.post('/', userController.createNewUser)
-router.patch('/:email', userController.updateUser);
-router.patch('/token/:email/:token', userController.updateUserToken);
+router.patch('/:username', userController.updateUser);
+router.patch('/token/:username/:token', userController.updateUserToken);
 router.patch('/resetpass/:username/:password', userController.updateUserPass);
 router.delete('/:username', userController.deleteUser);
 

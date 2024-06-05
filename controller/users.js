@@ -25,10 +25,10 @@ const createNewUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    const {email} = req.params;
+    const {username} = req.params;
     const {body} = req;
     try {
-        await userModels.updateUser(body, email);
+        await userModels.updateUser(body, username);
         res.status(200).json({
         });
     } catch (error) {
@@ -41,9 +41,9 @@ const updateUser = async (req, res) => {
 
 
 const updateUserToken = async (req, res) => {
-    const {email, token} = req.params;
+    const {username, token} = req.params;
     try {
-        await userModels.updateUserToken(email, token);
+        await userModels.updateUserToken(username, token);
         res.status(200).json({
         });
     } catch (error) {
