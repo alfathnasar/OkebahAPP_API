@@ -1,8 +1,8 @@
 const userModels = require('../models/users.js')
 
 const getUsers = async (req, res) => {
-        const {email} = req.params;
-        const [data] = await userModels.getUsers(email);
+        const {username} = req.params;
+        const [data] = await userModels.getUsers(username);
         res.status(200).json({
             data : data
         })
